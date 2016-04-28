@@ -1,7 +1,7 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Celestial-Frontier-Development.CSharp", "Celestial-Frontier-Development.CSharp.csproj", "{BCA7BF34-6895-0DAA-3C6C-6988F85C10AA}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{7077C2B8-A6A3-A117-5D64-E3EA3E460493}") = "Celestial-Frontier-Development", "Assembly-CSharp.csproj", "{8C809917-B893-4E77-B6D3-441FD8309466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BCA7BF34-6895-0DAA-3C6C-6988F85C10AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BCA7BF34-6895-0DAA-3C6C-6988F85C10AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BCA7BF34-6895-0DAA-3C6C-6988F85C10AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BCA7BF34-6895-0DAA-3C6C-6988F85C10AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C809917-B893-4E77-B6D3-441FD8309466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C809917-B893-4E77-B6D3-441FD8309466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C809917-B893-4E77-B6D3-441FD8309466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C809917-B893-4E77-B6D3-441FD8309466}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

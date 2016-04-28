@@ -45,7 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ShipMotion.cs" />
+     <Compile Include="Assets\Scripts\NoiseGen.cs" />
+     <Compile Include="Assets\Scripts\ShipMotion.cs" />
+     <Compile Include="Assets\Scripts\TerrainGen.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
