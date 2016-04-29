@@ -9,15 +9,23 @@ public class ShipController : MonoBehaviour {
 
     //----------------------------------------------------------------
     //! Class variables
+    public Camera MainCamera;
+
+    public GameObject MainPlayer;
+
+    FirstPersonController fpsController;
+
+    public Transform SeatPosition;
+
     public float MouseSensitivity = 100f;
 
     public float ShipAccelerationAmmount = 100f;
 
     private float MouseX = 0.0f, MouseY = 0.0f;
 
-    private Camera MainCamera;
-
     private Rigidbody ShipRigidBody;
+
+    private Collider ShipExteriorCollider;
 
     //----------------------------------------------------------------
     //! Rotation Controller public variables
@@ -63,6 +71,10 @@ public class ShipController : MonoBehaviour {
     private void Start()
     {
         ShipRigidBody = GetComponent<Rigidbody>();
+        ShipExteriorCollider = ShipRigidBody.GetComponent<Collider>();
+
+        fpsController = MainPlayer.GetComponent<FirstPersonController>();
+
         MainCamera = Camera.main;
 
         CameraDefaultRotation = MainCamera.transform.localEulerAngles;
@@ -71,16 +83,48 @@ public class ShipController : MonoBehaviour {
         CursorController();
     }
 
+    private bool PlayerCanControlShip = false;
+
+    private float timer = 0f;
+
     private void Update()
     {
-        MouseX = Input.GetAxis("Mouse X");
-        MouseY = Input.GetAxis("Mouse Y");
+        if (PlayerCanControlShip)
+        {
+            MouseX = Input.GetAxis("Mouse X");
+            MouseY = Input.GetAxis("Mouse Y");
 
-        ControlShipRotation();
-        ControlShipMovement();
+            ControlShipRotation();
+            ControlShipMovement();
+
+            MainPlayer.transform.position = SeatPosition.transform.position;
+            MainPlayer.transform.rotation = ShipRigidBody.transform.rotation;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!PlayerCanControlShip)
+            {
+                fpsController.IsPlayerUsingShip = true;
+                PlayerCanControlShip = true;
+            }
+            else if(PlayerCanControlShip)
+            {
+                if (Throttle == 0)
+                {
+                    MainPlayer.transform.position = SeatPosition.transform.position;
+
+                    fpsController.ResetValues();
+
+                    fpsController.playerTransformRotation = ShipRigidBody.transform.eulerAngles;
+                    fpsController.IsPlayerUsingShip = false;
+
+                    PlayerCanControlShip = false;
+                }
+            }
+        }
 
         ShipRigidBody.angularVelocity = Vector3.zero;
-
         CursorController();
     }
 

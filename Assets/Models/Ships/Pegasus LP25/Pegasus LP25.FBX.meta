@@ -17,6 +17,7 @@ ModelImporter:
     100018: Pegasus_interior_steering
     100020: Pegasus_interior_structure
     100022: Pegasus_sideEngines
+    100024: Pegasus_interior_base
     400000: Box001
     400002: Box002
     400004: Box003
@@ -29,6 +30,7 @@ ModelImporter:
     400018: Pegasus_interior_steering
     400020: Pegasus_interior_structure
     400022: Pegasus_sideEngines
+    400024: Pegasus_interior_base
     2300000: Box001
     2300002: Box002
     2300004: Box003
@@ -40,6 +42,7 @@ ModelImporter:
     2300016: Pegasus_interior_steering
     2300018: Pegasus_interior_structure
     2300020: Pegasus_sideEngines
+    2300022: Pegasus_interior_base
     3300000: Box001
     3300002: Box002
     3300004: Box003
@@ -51,6 +54,7 @@ ModelImporter:
     3300016: Pegasus_interior_steering
     3300018: Pegasus_interior_structure
     3300020: Pegasus_sideEngines
+    3300022: Pegasus_interior_base
     4300000: Pegasus_sideEngines
     4300002: Pegasus_exterior
     4300004: Pegasus_interior_structure
@@ -62,6 +66,7 @@ ModelImporter:
     4300016: Pegasus_interior_steering
     4300018: Box002
     4300020: Box003
+    4300022: Pegasus_interior_base
     7400000: Take 001
     9500000: //RootNode
   materials:
