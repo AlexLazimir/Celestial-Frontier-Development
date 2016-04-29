@@ -4,6 +4,9 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class ShipController : MonoBehaviour {
 
+    // Press F4 to enable the cursor
+    // Press F3 to enable debugging - WIP -
+
     //----------------------------------------------------------------
     //! Class variables
     public float MouseSensitivity = 100f;
