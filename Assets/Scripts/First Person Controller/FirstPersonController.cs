@@ -17,6 +17,12 @@ public class FirstPersonController : MonoBehaviour {
     float horizontal, vertical, playerGravity;
     float horizontalRotation, verticalRotation;
 
+	public GameObject attatchedObj;
+	Vector3 attachedPos = Vector3.zero;
+	Quaternion attatchedRot = Quaternion.identity;
+
+	bool isAttached = false;
+
     public bool IsPlayerUsingShip = false;
 
     Vector3 gravityDirection;
@@ -32,6 +38,18 @@ public class FirstPersonController : MonoBehaviour {
 
     void Update()
     {
+		if(Input.GetKeyDown(KeyCode.E))
+		{
+			if (!IsPlayerUsingShip)
+			{
+				IsPlayerUsingShip = true;
+			}
+			else if(IsPlayerUsingShip)
+			{
+
+				IsPlayerUsingShip = false;
+			}
+		}
         if (!IsPlayerUsingShip)
         {
             horizontal = Input.GetAxis("Horizontal") * MovementSpeed * Time.deltaTime;
@@ -59,6 +77,14 @@ public class FirstPersonController : MonoBehaviour {
                 gravityDir = 0f;
             }
         }
+		else if (IsPlayerUsingShip)
+		{
+			
+			attachedPos = attatchedObj.gameObject.transform.transform.position;
+			attatchedRot = attatchedObj.gameObject.transform.parent.GetComponent<Rigidbody>().rotation;
+			gameObject.transform.position = attachedPos;
+			gameObject.transform.rotation = attatchedRot;
+		}
     }
 
     public void ResetValues()
@@ -78,5 +104,11 @@ public class FirstPersonController : MonoBehaviour {
     {
         IsGrounded = false;
     }
+	void OnTriggerEnter (Collider colTrig)
+	{
+		attatchedObj = colTrig.gameObject;
+		Debug.Log(attatchedObj.name.ToString());
+		Debug.Log("asdadsas");
+	}
 
 }

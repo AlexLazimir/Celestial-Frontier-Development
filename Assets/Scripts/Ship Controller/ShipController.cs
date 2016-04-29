@@ -97,15 +97,15 @@ public class ShipController : MonoBehaviour {
             ControlShipRotation();
             ControlShipMovement();
 
-            MainPlayer.transform.position = SeatPosition.transform.position;
-            MainPlayer.transform.rotation = ShipRigidBody.transform.rotation;
+            //MainPlayer.transform.position = SeatPosition.transform.position;
+           // MainPlayer.transform.rotation = ShipRigidBody.transform.rotation;
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!PlayerCanControlShip)
             {
-                fpsController.IsPlayerUsingShip = true;
+               // fpsController.IsPlayerUsingShip = true;
                 PlayerCanControlShip = true;
             }
             else if(PlayerCanControlShip)
@@ -117,7 +117,7 @@ public class ShipController : MonoBehaviour {
                     fpsController.ResetValues();
 
                     fpsController.playerTransformRotation = ShipRigidBody.transform.eulerAngles;
-                    fpsController.IsPlayerUsingShip = false;
+                   // fpsController.IsPlayerUsingShip = false;
 
                     PlayerCanControlShip = false;
                 }
