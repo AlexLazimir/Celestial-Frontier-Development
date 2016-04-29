@@ -4,25 +4,35 @@ using System.Collections;
 public class ShipMotion : MonoBehaviour {
 	// Use this for initialization
 	float speed = 0;
-	public float speedCap =10;
+
+    public float speedCap =10;
 	public float turnSpeed = 10;
-	Rigidbody rigBod;
+
+    Rigidbody rigBod;
 	Vector3 movementDir = Vector3.zero;
-	public float clampAngle = 80.0f;
-	private float rotY = 0.0f;
-	private float rotX = 0.0f;
+
+    public float clampAngle = 80.0f;
+
+	private float 
+        pitchControl = 0.0f, 
+        rollControl = 0.0f, 
+        yawControl = 0.0f;
+
+    private bool CursorIsVisible = false;
+
 	void Start () {
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-		rigBod = gameObject.GetComponent<Rigidbody>();
+        HandleCursorVisibility();
+
+        rigBod = gameObject.GetComponent<Rigidbody>();
+
 		Vector3 rot = transform.localRotation.eulerAngles;
-		rotY = rot.y;
-		rotX = rot.x;
+        yawControl = rot.y;
+        rollControl = rot.z;
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		if(Input.GetKey(KeyCode.W) && speed < speedCap)
+        HandleCursorVisibility();
+        if (Input.GetKey(KeyCode.W) && speed < speedCap)
 		{
 			speed += 0.05f;
 		}
@@ -30,20 +40,43 @@ public class ShipMotion : MonoBehaviour {
 		{
 			speed -= 0.05f;
 		}
-		rigBod.AddForce(transform.forward * speed);
-		float mouseX = Input.GetAxis("Mouse X");
-		float mouseY = -Input.GetAxis("Mouse Y");
+		rigBod.AddForce(transform.forward * speed * 100f);
 
-		rotY += mouseX * turnSpeed * Time.deltaTime;
-		rotX += mouseY * turnSpeed * Time.deltaTime;
+        float roll = Input.GetAxis("Mouse X");
+		float pitch = -Input.GetAxis("Mouse Y");
+        float yaw = Input.GetAxis("Horizontal");
 
-		rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
 
-		Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
-		transform.rotation = localRotation;
+		rollControl = roll * turnSpeed * Time.deltaTime;
+		pitchControl = pitch * turnSpeed * Time.deltaTime;
+        yawControl = yaw * turnSpeed/5 * Time.deltaTime;
+
+        //rollControl = Mathf.Clamp(rollControl, -clampAngle, clampAngle);
+
+        //Quaternion localRotation = Quaternion.Euler(pitchControl, yawControl, rollControl);
+        transform.Rotate(new Vector3(pitchControl, yawControl, rollControl));
 	}
 	void OnGUI()
 	{
 		GUI.Box(new Rect(Screen.width/2 -((speed*100)/2), Screen.height - 50,speed*100,50),"Speed");
 	}
+
+    private void HandleCursorVisibility()
+    {
+        if(!CursorIsVisible)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if(CursorIsVisible)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            CursorIsVisible = !CursorIsVisible;
+        }
+    }
 }
