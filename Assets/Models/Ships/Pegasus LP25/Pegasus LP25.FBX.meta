@@ -18,6 +18,12 @@ ModelImporter:
     100020: Pegasus_interior_structure
     100022: Pegasus_sideEngines
     100024: Pegasus_interior_base
+    100026: Box004
+    100028: Box005
+    100030: Pegasus_engine_01
+    100032: Pegasus_exterior_front
+    100034: Plane001
+    100036: Sphere001
     400000: Box001
     400002: Box002
     400004: Box003
@@ -31,6 +37,12 @@ ModelImporter:
     400020: Pegasus_interior_structure
     400022: Pegasus_sideEngines
     400024: Pegasus_interior_base
+    400026: Box004
+    400028: Box005
+    400030: Pegasus_engine_01
+    400032: Pegasus_exterior_front
+    400034: Plane001
+    400036: Sphere001
     2300000: Box001
     2300002: Box002
     2300004: Box003
@@ -43,6 +55,12 @@ ModelImporter:
     2300018: Pegasus_interior_structure
     2300020: Pegasus_sideEngines
     2300022: Pegasus_interior_base
+    2300024: Box004
+    2300026: Box005
+    2300028: Pegasus_engine_01
+    2300030: Pegasus_exterior_front
+    2300032: Plane001
+    2300034: Sphere001
     3300000: Box001
     3300002: Box002
     3300004: Box003
@@ -55,6 +73,12 @@ ModelImporter:
     3300018: Pegasus_interior_structure
     3300020: Pegasus_sideEngines
     3300022: Pegasus_interior_base
+    3300024: Box004
+    3300026: Box005
+    3300028: Pegasus_engine_01
+    3300030: Pegasus_exterior_front
+    3300032: Plane001
+    3300034: Sphere001
     4300000: Pegasus_sideEngines
     4300002: Pegasus_exterior
     4300004: Pegasus_interior_structure
@@ -67,6 +91,12 @@ ModelImporter:
     4300018: Box002
     4300020: Box003
     4300022: Pegasus_interior_base
+    4300024: Pegasus_exterior_front
+    4300026: Pegasus_engine_01
+    4300028: Sphere001
+    4300030: Box004
+    4300032: Box005
+    4300034: Plane001
     7400000: Take 001
     9500000: //RootNode
   materials:
