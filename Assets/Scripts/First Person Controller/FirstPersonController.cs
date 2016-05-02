@@ -65,14 +65,18 @@ public class FirstPersonController : MonoBehaviour {
 
             verticalRotation = Mathf.Clamp(verticalRotation, -70, 110);
 
-            Vector3 pos = new Vector3(horizontal, 0, vertical);
+            Vector3 pos = new Vector3(horizontal, 0f, vertical);
 
             pos = transform.rotation * pos;
+
+            //Debug.Log(IsGrounded);
 
             cam.transform.localEulerAngles = new Vector3(-verticalRotation, 0f, 0f);
 			playerRBody.transform.Rotate(new Vector3(0f, horizontalRotation, 0f));
             //playerRBody.AddForce(pos);
-			playerRBody.velocity = transform.parent.GetComponent<Rigidbody>().velocity + pos * 1000;
+			playerRBody.velocity = transform.parent.GetComponent<Rigidbody>().velocity + pos * 500f;
+            Debug.Log("Player Velocity: " + playerRBody.velocity + " " + "Parent Velocity: " + transform.parent.GetComponent<Rigidbody>().velocity);
+            playerRBody.AddForce(transform.up * gravityDir);
 			//charContr.Move(transform.forward * vertical);
 			//charContr.Move(transform.right * horizontal);
 			//charContr.Move(transform.parent.forward * transform.parent.gameObject.GetComponent<ShipController>().ForwardThrottle * transform.parent.gameObject.GetComponent<ShipController>().ShipAccelerationAmmount * Time.deltaTime * 0.001f);
@@ -80,7 +84,7 @@ public class FirstPersonController : MonoBehaviour {
 			if (!IsGrounded)
             {
 				//charContr.Move(-transform.up * 0.5f);
-               gravityDir += Physics.gravity.y * Time.deltaTime;
+               gravityDir += Physics.gravity.y;
             }
             else if (IsGrounded)
             {
@@ -129,7 +133,6 @@ public class FirstPersonController : MonoBehaviour {
 	void OnTriggerEnter (Collider colTrig)
 	{
 		attatchedObj = colTrig.gameObject;
-		Debug.Log(attatchedObj.name.ToString());
-		Debug.Log("asdadsas");
+		//Debug.Log(attatchedObj.name.ToString());
 	}
 }
