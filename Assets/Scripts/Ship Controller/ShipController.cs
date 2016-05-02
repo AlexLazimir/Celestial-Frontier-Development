@@ -90,7 +90,7 @@ public class ShipController : MonoBehaviour {
 
     private void Update()
     {
-        if (PlayerCanControlShip)
+		if (fpsController.IsPlayerUsingShip)
         {
             MouseX = Input.GetAxis("Mouse X");
             MouseY = Input.GetAxis("Mouse Y");
@@ -102,7 +102,7 @@ public class ShipController : MonoBehaviour {
            // MainPlayer.transform.rotation = ShipRigidBody.transform.rotation;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        /*if (Input.GetKeyDown(KeyCode.E))
         {
             if (!PlayerCanControlShip)
             {
@@ -123,7 +123,7 @@ public class ShipController : MonoBehaviour {
                     PlayerCanControlShip = false;
                 }
             }
-        }
+        }*/
 
         ShipRigidBody.angularVelocity = Vector3.zero;
         CursorController();

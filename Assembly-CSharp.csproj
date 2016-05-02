@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\First Person Controller\FirstPersonController.cs" />
+     <Compile Include="Assets\Scripts\FreeRoamController.cs" />
      <Compile Include="Assets\Scripts\NoiseGen.cs" />
      <Compile Include="Assets\Scripts\Ship Controller\ShipController.cs" />
+     <Compile Include="Assets\Scripts\Ship Controller\SteeringController.cs" />
      <Compile Include="Assets\Scripts\ShipControllerReference.cs" />
      <Compile Include="Assets\Scripts\ShipMotion.cs" />
      <Compile Include="Assets\Scripts\Space Area Controller\SpaceAreaController.cs" />

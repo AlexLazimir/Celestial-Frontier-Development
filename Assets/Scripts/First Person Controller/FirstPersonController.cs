@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody))]
 public class FirstPersonController : MonoBehaviour {
 
     public float MovementSpeed;
@@ -42,13 +41,13 @@ public class FirstPersonController : MonoBehaviour {
     void Update()
     {
         HandleCursor();
-        if (Input.GetKeyDown(KeyCode.E))
+		if (Input.GetKeyDown(KeyCode.E) && attatchedObj.name == "SeatPosition")
 		{
 			if (!IsPlayerUsingShip)
 			{
 				IsPlayerUsingShip = true;
 			}
-			else if(IsPlayerUsingShip)
+			else if(IsPlayerUsingShip && attatchedObj.name == "SeatPosition")
 			{
 
 				IsPlayerUsingShip = false;
