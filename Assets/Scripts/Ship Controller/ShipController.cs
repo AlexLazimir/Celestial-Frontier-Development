@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(Rigidbody))]
 public class ShipController : MonoBehaviour {
 
     // Press F4 to enable the cursor
@@ -23,7 +23,9 @@ public class ShipController : MonoBehaviour {
 
     private float MouseX = 0.0f, MouseY = 0.0f;
 
-    private Rigidbody ShipRigidBody;
+	CharacterController charContr;
+
+    //private Rigidbody ShipRigidBody;
 
     private Collider ShipExteriorCollider;
 
@@ -70,8 +72,9 @@ public class ShipController : MonoBehaviour {
 
     private void Start()
     {
-        ShipRigidBody = GetComponent<Rigidbody>();
-        ShipExteriorCollider = ShipRigidBody.GetComponent<Collider>();
+		charContr = gameObject.GetComponent<CharacterController>();
+        //ShipRigidBody = GetComponent<Rigidbody>();
+		ShipExteriorCollider = gameObject.GetComponent<Collider>();
 
         fpsController = MainPlayer.GetComponent<FirstPersonController>();
 
@@ -90,6 +93,11 @@ public class ShipController : MonoBehaviour {
 
     private void Update()
     {
+		//Debug.Log(transform.forward * ForwardThrottle * ShipAccelerationAmmount * Time.deltaTime);
+		charContr.Move(transform.forward * ForwardThrottle * ShipAccelerationAmmount * Time.deltaTime * 0.001f);
+		charContr.Move(transform.up * UpwardThrottle * ShipAccelerationAmmount * Time.deltaTime * 0.001f);
+		//ShipRigidBody.AddForce(transform.forward * ForwardThrottle * ShipAccelerationAmmount * Time.deltaTime, ForceMode.Acceleration);
+		//ShipRigidBody.AddForce(transform.up * UpwardThrottle * ShipAccelerationAmmount * Time.deltaTime, ForceMode.Acceleration);
 		if (fpsController.IsPlayerUsingShip)
         {
             MouseX = Input.GetAxis("Mouse X");
@@ -125,7 +133,7 @@ public class ShipController : MonoBehaviour {
             }
         }*/
 
-        ShipRigidBody.angularVelocity = Vector3.zero;
+        //ShipRigidBody.angularVelocity = Vector3.zero;
         CursorController();
     }
 
@@ -231,7 +239,8 @@ public class ShipController : MonoBehaviour {
 
 
         //! look into how to rotate objects from local space to world space
-        ShipRigidBody.transform.Rotate(TargetShipRotation, Space.Self);
+        //ShipRigidBody.transform.Rotate(TargetShipRotation, Space.Self);
+		charContr.transform.Rotate(TargetShipRotation,Space.Self);
     }
 
     private void LerpCameraRotationToDefault()
@@ -290,7 +299,7 @@ public class ShipController : MonoBehaviour {
     //----------------------------------------------------------------
     // Movement Controller && its local variables
 
-    private float ForwardThrottle = 0.0f;
+	public float ForwardThrottle = 0.0f;
 
     private float UpwardThrottle = 0.0f;
 
@@ -316,9 +325,6 @@ public class ShipController : MonoBehaviour {
     private void ControlShipMovement()
     {
         GetThrottleAmmount();
-
-        ShipRigidBody.AddForce(transform.forward * ForwardThrottle * ShipAccelerationAmmount * Time.deltaTime, ForceMode.Acceleration);
-        ShipRigidBody.AddForce(transform.up * UpwardThrottle * ShipAccelerationAmmount * Time.deltaTime, ForceMode.Acceleration);
     }
 
     private void GetThrottleAmmount()

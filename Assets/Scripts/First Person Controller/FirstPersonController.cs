@@ -7,32 +7,33 @@ public class FirstPersonController : MonoBehaviour {
     public float MouseSensitivity;
 
     public Camera cam;
-    public Rigidbody playerRBody;
+    //public Rigidbody playerRBody;
 
     public Vector3 playerTransformRotation = Vector3.zero;
 
-    public float shipGravity = -5f;
+    //public float shipGravity = -5f;
 
-    float horizontal, vertical, playerGravity;
+    float horizontal, vertical;
     float horizontalRotation, verticalRotation;
 
 	public GameObject attatchedObj;
 	Vector3 attachedPos = Vector3.zero;
 	Quaternion attatchedRot = Quaternion.identity;
+	CharacterController charContr;
 
 	bool isAttached = false;
 
     public bool IsPlayerUsingShip = false;
 
-    Vector3 gravityDirection;
-    float gravityDir;
+   // float gravityDir;
 
     bool IsGrounded = false;
 
     void Start()
     {
+		charContr = gameObject.GetComponent<CharacterController>();
         //cam = Camera.main;
-        playerRBody = GetComponent<Rigidbody>();
+        //playerRBody = GetComponent<Rigidbody>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -40,6 +41,7 @@ public class FirstPersonController : MonoBehaviour {
 
     void Update()
     {
+		charContr.transform.localPosition.Set(charContr.transform.localPosition.x,1.07f,charContr.transform.localPosition.z);
         HandleCursor();
 		if (Input.GetKeyDown(KeyCode.E) && attatchedObj.name == "SeatPosition")
 		{
@@ -63,28 +65,32 @@ public class FirstPersonController : MonoBehaviour {
 
             verticalRotation = Mathf.Clamp(verticalRotation, -70, 110);
 
-            Vector3 pos = new Vector3(horizontal, gravityDir, vertical);
+            Vector3 pos = new Vector3(horizontal, 0, vertical);
 
             pos = transform.rotation * pos;
 
             cam.transform.localEulerAngles = new Vector3(-verticalRotation, 0f, 0f);
-            playerRBody.transform.Rotate(new Vector3(0f, horizontalRotation, 0f));
-            playerRBody.AddForce(pos);
-
-            if (!IsGrounded)
+            gameObject.transform.Rotate(new Vector3(0f, horizontalRotation, 0f));
+           // playerRBody.AddForce(pos);
+			charContr.Move(transform.forward * vertical);
+			charContr.Move(transform.right * horizontal);
+			charContr.Move(transform.parent.forward * transform.parent.gameObject.GetComponent<ShipController>().ForwardThrottle * transform.parent.gameObject.GetComponent<ShipController>().ShipAccelerationAmmount * Time.deltaTime * 0.001f);
+			//charContr.SimpleMove(transform.forward * vertical);
+			if (!charContr.isGrounded)
             {
-                gravityDir += Physics.gravity.y * Time.deltaTime;
+				//charContr.Move(-transform.up * 0.5f);
+               // gravityDir += Physics.gravity.y * Time.deltaTime;
             }
             else if (IsGrounded)
             {
-                gravityDir = 0f;
+               // gravityDir = 0f;
             }
         }
 		else if (IsPlayerUsingShip)
 		{
 			
 			attachedPos = attatchedObj.gameObject.transform.transform.position;
-			attatchedRot = attatchedObj.gameObject.transform.parent.GetComponent<Rigidbody>().rotation;
+			attatchedRot = attatchedObj.gameObject.transform.parent.transform.rotation;
 			gameObject.transform.position = attachedPos;
 			gameObject.transform.rotation = attatchedRot;
 		}
@@ -125,5 +131,4 @@ public class FirstPersonController : MonoBehaviour {
 		Debug.Log(attatchedObj.name.ToString());
 		Debug.Log("asdadsas");
 	}
-
 }
