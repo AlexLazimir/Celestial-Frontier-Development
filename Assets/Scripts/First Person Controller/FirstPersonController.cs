@@ -34,11 +34,15 @@ public class FirstPersonController : MonoBehaviour {
     {
         //cam = Camera.main;
         playerRBody = GetComponent<Rigidbody>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
-		if(Input.GetKeyDown(KeyCode.E))
+        HandleCursor();
+        if (Input.GetKeyDown(KeyCode.E))
 		{
 			if (!IsPlayerUsingShip)
 			{
@@ -93,6 +97,18 @@ public class FirstPersonController : MonoBehaviour {
         horizontal = 0f;
         verticalRotation = 0f;
         horizontalRotation = 0f;
+    }
+
+    private void HandleCursor()
+    {
+        if(Input.GetKeyDown(KeyCode.F4))
+        {
+            if (Cursor.lockState == CursorLockMode.Locked)
+                Cursor.lockState = CursorLockMode.None;
+            else if(Cursor.lockState == CursorLockMode.None)
+                Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = !Cursor.visible;
+        }
     }
 
     void OnCollisionStay(Collision collisionInfo)

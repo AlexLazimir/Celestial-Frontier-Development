@@ -24,6 +24,19 @@ ModelImporter:
     100032: Pegasus_exterior_front
     100034: Plane001
     100036: Sphere001
+    100038: Pegasus_exterior_misc
+    100040: Pegasus_exterior_turret
+    100042: Pegasus_exterior_window
+    100044: Pegasus_interior_computer_01
+    100046: Pegasus_interior_computer_02
+    100048: Pegasus_interior_console_01
+    100050: Pegasus_interior_console_02
+    100052: Pegasus_interior_console_03
+    100054: Pegasus_interior_thrust
+    100056: Pegasus_wings_01
+    100058: Pegasus_interior_window
+    100060: Pegasus_interior_window001
+    100062: Pegasus_interior_steering_02
     400000: Box001
     400002: Box002
     400004: Box003
@@ -43,6 +56,19 @@ ModelImporter:
     400032: Pegasus_exterior_front
     400034: Plane001
     400036: Sphere001
+    400038: Pegasus_exterior_misc
+    400040: Pegasus_exterior_turret
+    400042: Pegasus_exterior_window
+    400044: Pegasus_interior_computer_01
+    400046: Pegasus_interior_computer_02
+    400048: Pegasus_interior_console_01
+    400050: Pegasus_interior_console_02
+    400052: Pegasus_interior_console_03
+    400054: Pegasus_interior_thrust
+    400056: Pegasus_wings_01
+    400058: Pegasus_interior_window
+    400060: Pegasus_interior_window001
+    400062: Pegasus_interior_steering_02
     2300000: Box001
     2300002: Box002
     2300004: Box003
@@ -61,6 +87,19 @@ ModelImporter:
     2300030: Pegasus_exterior_front
     2300032: Plane001
     2300034: Sphere001
+    2300036: Pegasus_exterior_misc
+    2300038: Pegasus_exterior_turret
+    2300040: Pegasus_exterior_window
+    2300042: Pegasus_interior_computer_01
+    2300044: Pegasus_interior_computer_02
+    2300046: Pegasus_interior_console_01
+    2300048: Pegasus_interior_console_02
+    2300050: Pegasus_interior_console_03
+    2300052: Pegasus_interior_thrust
+    2300054: Pegasus_wings_01
+    2300056: Pegasus_interior_window
+    2300058: Pegasus_interior_window001
+    2300060: Pegasus_interior_steering_02
     3300000: Box001
     3300002: Box002
     3300004: Box003
@@ -79,6 +118,19 @@ ModelImporter:
     3300030: Pegasus_exterior_front
     3300032: Plane001
     3300034: Sphere001
+    3300036: Pegasus_exterior_misc
+    3300038: Pegasus_exterior_turret
+    3300040: Pegasus_exterior_window
+    3300042: Pegasus_interior_computer_01
+    3300044: Pegasus_interior_computer_02
+    3300046: Pegasus_interior_console_01
+    3300048: Pegasus_interior_console_02
+    3300050: Pegasus_interior_console_03
+    3300052: Pegasus_interior_thrust
+    3300054: Pegasus_wings_01
+    3300056: Pegasus_interior_window
+    3300058: Pegasus_interior_window001
+    3300060: Pegasus_interior_steering_02
     4300000: Pegasus_sideEngines
     4300002: Pegasus_exterior
     4300004: Pegasus_interior_structure
@@ -97,6 +149,19 @@ ModelImporter:
     4300030: Box004
     4300032: Box005
     4300034: Plane001
+    4300036: Pegasus_interior_console_01
+    4300038: Pegasus_interior_console_03
+    4300040: Pegasus_interior_console_02
+    4300042: Pegasus_interior_thrust
+    4300044: Pegasus_interior_computer_02
+    4300046: Pegasus_interior_computer_01
+    4300048: Pegasus_exterior_turret
+    4300050: Pegasus_exterior_misc
+    4300052: Pegasus_wings_01
+    4300054: Pegasus_exterior_window
+    4300056: Pegasus_interior_window
+    4300058: Pegasus_interior_window001
+    4300060: Pegasus_interior_steering_02
     7400000: Take 001
     9500000: //RootNode
   materials:
