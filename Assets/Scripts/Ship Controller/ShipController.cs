@@ -91,12 +91,15 @@ public class ShipController : MonoBehaviour {
 
     private float timer = 0f;
 
-    private void Update()
+    //set it to fixed update and change cursor to update and other methods to update()
+
+    private void FixedUpdate()
     {
 		//Debug.Log(transform.forward * ForwardThrottle * ShipAccelerationAmmount * Time.deltaTime);
 		//charContr.Move(transform.forward * ForwardThrottle * ShipAccelerationAmmount * Time.deltaTime * 0.001f);
 		//charContr.Move(transform.up * UpwardThrottle * ShipAccelerationAmmount * Time.deltaTime * 0.001f);
-		ShipRigidBody.velocity = (transform.forward * ForwardThrottle * ShipAccelerationAmmount * Time.deltaTime);
+		ShipRigidBody.velocity = (transform.forward * (int) ForwardThrottle* ShipAccelerationAmmount * Time.deltaTime);
+
 		//ShipRigidBody.velocity += (transform.up * UpwardThrottle * ShipAccelerationAmmount * Time.deltaTime);
 		if (fpsController.IsPlayerUsingShip)
         {
@@ -364,7 +367,7 @@ public class ShipController : MonoBehaviour {
                 UpwardThrottle = Mathf.Lerp(UpwardThrottle, 0f, 0.025f);
             }
 
-            Debug.Log(UpwardThrottle);
+            //Debug.Log(UpwardThrottle);
 
             if (Input.GetKeyDown(KeyCode.X))
             {
