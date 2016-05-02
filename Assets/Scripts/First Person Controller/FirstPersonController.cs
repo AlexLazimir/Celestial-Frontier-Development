@@ -7,7 +7,7 @@ public class FirstPersonController : MonoBehaviour {
     public float MouseSensitivity;
 
     public Camera cam;
-    //public Rigidbody playerRBody;
+    public Rigidbody playerRBody;
 
     public Vector3 playerTransformRotation = Vector3.zero;
 
@@ -19,21 +19,21 @@ public class FirstPersonController : MonoBehaviour {
 	public GameObject attatchedObj;
 	Vector3 attachedPos = Vector3.zero;
 	Quaternion attatchedRot = Quaternion.identity;
-	CharacterController charContr;
+	//CharacterController charContr;
 
 	bool isAttached = false;
 
     public bool IsPlayerUsingShip = false;
 
-   // float gravityDir;
+    float gravityDir;
 
     bool IsGrounded = false;
 
     void Start()
     {
-		charContr = gameObject.GetComponent<CharacterController>();
+		//charContr = gameObject.GetComponent<CharacterController>();
         //cam = Camera.main;
-        //playerRBody = GetComponent<Rigidbody>();
+        playerRBody = GetComponent<Rigidbody>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -41,7 +41,7 @@ public class FirstPersonController : MonoBehaviour {
 
     void Update()
     {
-		charContr.transform.localPosition.Set(charContr.transform.localPosition.x,1.07f,charContr.transform.localPosition.z);
+		//charContr.transform.localPosition.Set(charContr.transform.localPosition.x,1.07f,charContr.transform.localPosition.z);
         HandleCursor();
 		if (Input.GetKeyDown(KeyCode.E) && attatchedObj.name == "SeatPosition")
 		{
@@ -56,7 +56,7 @@ public class FirstPersonController : MonoBehaviour {
 			}
 		}
         if (!IsPlayerUsingShip)
-        {
+		{
             horizontal = Input.GetAxis("Horizontal") * MovementSpeed * Time.deltaTime;
             vertical = Input.GetAxis("Vertical") * MovementSpeed * Time.deltaTime;
 
@@ -70,20 +70,21 @@ public class FirstPersonController : MonoBehaviour {
             pos = transform.rotation * pos;
 
             cam.transform.localEulerAngles = new Vector3(-verticalRotation, 0f, 0f);
-            gameObject.transform.Rotate(new Vector3(0f, horizontalRotation, 0f));
-           // playerRBody.AddForce(pos);
-			charContr.Move(transform.forward * vertical);
-			charContr.Move(transform.right * horizontal);
-			charContr.Move(transform.parent.forward * transform.parent.gameObject.GetComponent<ShipController>().ForwardThrottle * transform.parent.gameObject.GetComponent<ShipController>().ShipAccelerationAmmount * Time.deltaTime * 0.001f);
+			playerRBody.transform.Rotate(new Vector3(0f, horizontalRotation, 0f));
+            //playerRBody.AddForce(pos);
+			playerRBody.velocity = transform.parent.GetComponent<Rigidbody>().velocity + pos * 1000;
+			//charContr.Move(transform.forward * vertical);
+			//charContr.Move(transform.right * horizontal);
+			//charContr.Move(transform.parent.forward * transform.parent.gameObject.GetComponent<ShipController>().ForwardThrottle * transform.parent.gameObject.GetComponent<ShipController>().ShipAccelerationAmmount * Time.deltaTime * 0.001f);
 			//charContr.SimpleMove(transform.forward * vertical);
-			if (!charContr.isGrounded)
+			if (!IsGrounded)
             {
 				//charContr.Move(-transform.up * 0.5f);
-               // gravityDir += Physics.gravity.y * Time.deltaTime;
+               gravityDir += Physics.gravity.y * Time.deltaTime;
             }
             else if (IsGrounded)
             {
-               // gravityDir = 0f;
+               gravityDir = 0f;
             }
         }
 		else if (IsPlayerUsingShip)
