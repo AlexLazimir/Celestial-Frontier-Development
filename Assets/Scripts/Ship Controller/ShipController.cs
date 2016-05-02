@@ -83,7 +83,8 @@ public class ShipController : MonoBehaviour {
         CursorController();
     }
 
-    private bool PlayerCanControlShip = false;
+    [SerializeField]
+    public bool PlayerCanControlShip = false;
 
     private float timer = 0f;
 
@@ -110,7 +111,7 @@ public class ShipController : MonoBehaviour {
             }
             else if(PlayerCanControlShip)
             {
-                if (Throttle == 0)
+                if (ForwardThrottle == 0)
                 {
                     MainPlayer.transform.position = SeatPosition.transform.position;
 
@@ -133,13 +134,19 @@ public class ShipController : MonoBehaviour {
 
     private float GUIMultiplyer = 5f;
 
-    private int TypeCastedThrottle;
+    private int TypeCastedForwardThrottle = 0;
+    private int TypeCastedUpwardThrottle = 0;
 
     void OnGUI()
     {
-        TypeCastedThrottle = (int)Throttle;
-        GUI.Box(new Rect(250, Screen.height/2, Throttle * GUIMultiplyer, 50), "");
-        GUI.TextArea(new Rect(250, Screen.height / 2 - 25, 100, 25), "Throttle: " + TypeCastedThrottle.ToString());
+        TypeCastedForwardThrottle = (int) ForwardThrottle;
+        TypeCastedUpwardThrottle = (int)UpwardThrottle;
+
+        GUI.Label(new Rect(250, Screen.height / 2 - 25, 200, 25), "Throttle: " + TypeCastedForwardThrottle.ToString());
+        GUI.Box(new Rect(250, Screen.height/2, ForwardThrottle * GUIMultiplyer, 50), "");
+
+        GUI.Label(new Rect(250, Screen.height / 2 - 100, 200, 25), "Upward Throttle: " + TypeCastedUpwardThrottle.ToString());
+        GUI.Box(new Rect(250, Screen.height / 2 - 75, UpwardThrottle * GUIMultiplyer, 50), "");
     }
 
     //----------------------------------------------------------------
@@ -240,7 +247,8 @@ public class ShipController : MonoBehaviour {
     //----------------------------------------------------------------
     // Camera Controller && its local variables
 
-    private bool ControlCamera;
+    [SerializeField]
+    public bool ControlCamera = false;
 
     private float CameraHorizontalRotation = 0.0f, CameraVerticalRotation = 0.0f;
 
@@ -282,7 +290,9 @@ public class ShipController : MonoBehaviour {
     //----------------------------------------------------------------
     // Movement Controller && its local variables
 
-    private float Throttle = 0.0f;
+    private float ForwardThrottle = 0.0f;
+
+    private float UpwardThrottle = 0.0f;
 
     private float ThrottleAmmount = 0.0f;
 
@@ -307,7 +317,8 @@ public class ShipController : MonoBehaviour {
     {
         GetThrottleAmmount();
 
-        ShipRigidBody.AddForce(transform.forward * Throttle * ShipAccelerationAmmount * Time.fixedDeltaTime, ForceMode.Acceleration);
+        ShipRigidBody.AddForce(transform.forward * ForwardThrottle * ShipAccelerationAmmount * Time.deltaTime, ForceMode.Acceleration);
+        ShipRigidBody.AddForce(transform.up * UpwardThrottle * ShipAccelerationAmmount * Time.deltaTime, ForceMode.Acceleration);
     }
 
     private void GetThrottleAmmount()
@@ -323,12 +334,31 @@ public class ShipController : MonoBehaviour {
         {
             if (Input.GetAxis("Vertical") > 0)
             {
-                Throttle += ThrottleAmmount;
+                ForwardThrottle += ThrottleAmmount;
             }
             else if (Input.GetAxis("Vertical") < 0)
             {
-                Throttle -= ThrottleAmmount;
+                ForwardThrottle -= ThrottleAmmount;
             }
+            
+            if(Input.GetKey(KeyCode.R))
+            {
+                UpwardThrottle += ThrottleAmmount * 2;
+            }
+            if (!IsGrounded)
+            {
+                if (Input.GetKey(KeyCode.F))
+                {
+                    UpwardThrottle -= ThrottleAmmount * 2;
+                }
+            }
+
+            if(UpwardThrottle > 0f || UpwardThrottle < 0f)
+            {
+                UpwardThrottle = Mathf.Lerp(UpwardThrottle, 0f, 0.025f);
+            }
+
+            Debug.Log(UpwardThrottle);
 
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -356,6 +386,7 @@ public class ShipController : MonoBehaviour {
 
     private void ClampThrottleAmmount()
     {
+        UpwardThrottle = Mathf.Clamp(UpwardThrottle, -50f, 50f);
         if (ShipWithinLocalSpace)
         {
             // check if the player is speeding through?
@@ -363,11 +394,11 @@ public class ShipController : MonoBehaviour {
             {
                 EmergencyStop(MaximumLocalSpaceThrottle, MinimumLocalSpaceThrottle);
             }*/
-            Throttle = Mathf.Clamp(Throttle, MinimumLocalSpaceThrottle, MaximumLocalSpaceThrottle);
+            ForwardThrottle = Mathf.Clamp(ForwardThrottle, MinimumLocalSpaceThrottle, MaximumLocalSpaceThrottle);
         }
         else if(!ShipWithinLocalSpace)
         {
-            Throttle = Mathf.Clamp(Throttle, -40, 100);
+            ForwardThrottle = Mathf.Clamp(ForwardThrottle, -40f, 100f);
         }
     }
 
@@ -375,24 +406,22 @@ public class ShipController : MonoBehaviour {
     {
         if (b_EmergencyStop)
         {
-            if (Throttle > EmergencyThrottleAmmount)
+            if (ForwardThrottle > 0f || ForwardThrottle < 0f)
             {
-                Throttle -= ThrottleProperties.EmergencyStopAmmount * Time.deltaTime;
-            }
-            else if (Throttle < -EmergencyThrottleAmmount)
-            {
-                Throttle += ThrottleProperties.EmergencyStopAmmount * Time.deltaTime;
-            }
-            else
-            {
-                Throttle = 0;
-                b_EmergencyStop = false;
+                ForwardThrottle = Mathf.Lerp(ForwardThrottle, 0f, 0.10f);
+
+                if ((int) ForwardThrottle == 0)
+                {
+                    b_EmergencyStop = false;
+                }
             }
         }
     }
 
     //----------------------------------------------------------------
     // Trigger && Collider Controller
+
+    private bool IsGrounded = false;
 
     private void OnTriggerEnter(Collider col)
     {
@@ -414,5 +443,15 @@ public class ShipController : MonoBehaviour {
             ShipWithinLocalSpace = false;
             Debug.Log("You have exited Local Flight Space, " + col.name);
         }
+    }
+
+    void OnCollisionStay(Collision collisionInfo)
+    {
+        IsGrounded = true;
+    }
+
+    void OnCollisionExit(Collision collisionInfo)
+    {
+        IsGrounded = false;
     }
 }
