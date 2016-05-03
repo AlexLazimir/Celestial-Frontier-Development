@@ -75,7 +75,7 @@ public class FirstPersonController : MonoBehaviour {
 			playerRBody.transform.Rotate(new Vector3(0f, horizontalRotation, 0f));
             //playerRBody.AddForce(pos);
 			playerRBody.velocity = transform.parent.GetComponent<Rigidbody>().velocity + pos * 500f;
-            Debug.Log("Player Velocity: " + playerRBody.velocity + " " + "Parent Velocity: " + transform.parent.GetComponent<Rigidbody>().velocity);
+            //Debug.Log("Player Velocity: " + playerRBody.velocity + " " + "Parent Velocity: " + transform.parent.GetComponent<Rigidbody>().velocity);
             playerRBody.AddForce(transform.up * gravityDir);
 			//charContr.Move(transform.forward * vertical);
 			//charContr.Move(transform.right * horizontal);
